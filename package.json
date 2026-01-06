@@ -1,5 +1,5 @@
 {
-  "name": "bist-rsi-checker",
+  "name": "bist-rsi-monitor",
   "version": "1.0.0",
   "description": "BIST RSI monitoring bot via GitHub Actions",
   "main": "index.js",
@@ -8,6 +8,5 @@
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
-    // Gerçek BIST verisi için gereken kütüphane buraya eklenecek
   }
 }
