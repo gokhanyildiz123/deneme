@@ -1,0 +1,39 @@
+name: BIST RSI 5-Minute Monitor
+
+# İş Akışı Tetikleyicileri
+on:
+  # Her 5 dakikada bir çalıştır (Cron: Dakika/Saat/Gün/Ay/HaftanınGünü)
+  # '*/5 * * * *' -> Her 5 dakikada bir
+  schedule:
+    - cron: '*/5 * * * *'
+  
+  # Manuel çalıştırma imkanı
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    # Ortam değişkenlerini (Secrets) bu job için tanımlıyoruz
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+
+    steps:
+      # 1. Kodu indir
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Node.js Kurulumu
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+      # 3. Bağımlılıkları Yükle (node-fetch gereklidir)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Botu Çalıştır
+      - name: Run BIST Check Script
+        run: npm start
